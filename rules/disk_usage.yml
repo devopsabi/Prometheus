@@ -1,0 +1,19 @@
+groups:
+  - name: recording_rules
+    interval: 5s
+    rules:
+      - alert: Warning_DiskSpace_Below_65%
+        expr: ((node_filesystem_avail_bytes  * 100  ) / node_filesystem_size_bytes {fstype!="tmpfs", fstype!="fuse.lxcfs", fstype!="xfs", device!="/dev/sda1"})  < 65
+        labels:
+          severity: moderate
+        annotations:
+          summary: "Warning... ! Instance {{ $labels.instance }} is low on disk space"
+          description: "{{ $labels.instance }} has only {{ $value }}% free."
+
+      - alert: Critical_DiskSpace_Below_10%
+        expr: ((node_filesystem_avail_bytes  * 100  ) / node_filesystem_size_bytes {fstype!="tmpfs", fstype!="fuse.lxcfs", fstype!="xfs", device!="/dev/sda1"})  < 10
+        labels:
+          severity: critical
+        annotations:
+          summary: "CRITICAL... ! Instance {{ $labels.instance }} is low on disk space"
+          description: "{{ $labels.instance }} has only {{ $value }}% free."

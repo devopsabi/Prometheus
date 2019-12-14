@@ -1,0 +1,21 @@
+global:
+  smtp_smarthost: 'smtp.sendgrid.net:587'
+  smtp_from: 'Alertmanager <alertmanager@example.org>'
+  smtp_auth_username: 'apikey'
+  smtp_auth_password: 'xxx'
+
+templates:
+- '/etc/alertmanager/template/gmail.tmpl'
+
+route:
+  routes:
+  - match:
+      alertname: Warning_DiskSpace_Below_65%
+  repeat_interval: 3h
+  receiver: team-X-mails
+
+
+receivers:
+- name: 'team-X-mails'
+  email_configs:
+  - to: 'devopsabi@gmail.com'

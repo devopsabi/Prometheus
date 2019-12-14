@@ -1,0 +1,87 @@
+
+https://prometheus.io/docs/introduction/overview/
+https://prometheus.io/docs/prometheus/latest/querying/basics/
+
+
+##### Download Prometheus #####
+
+https://prometheus.io/download/
+
+
+
+### To add a job name ###
+
+
+  - job_name: 'node01'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['192.168.33.11:9100']
+      
+      
+########### Calculating Disk Percentage ###########
+
+node_filesystem_avail_bytes  = ?
+node_filesystem_size_bytes = 100
+
+(node_filesystem_avail_bytes {fstype="xfs"} * 100) / node_filesystem_size_bytes
+
+
+
+########### To Quickly Generate A Large File.###########
+[10GB]
+dd if=/dev/zero of=10_GB.txt count=10240000 bs=1024
+
+[12GB]
+dd if=/dev/zero of=13_GB.txt count=12244800 bs=1024
+
+
+
+##### Grafana #####
+
+
+setenforce 0
+
+
+/etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=enforcing
+# SELINUXTYPE= can take one of three values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+
+/etc/yum.repos.d/grafana.repo
+
+[grafana]
+name=grafana
+baseurl=https://packages.grafana.com/oss/rpm
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+
+
+Node Exporter Full
+https://grafana.com/grafana/dashboards/1860
+
+
+
+/bin/java -javaagent:./jmx_prometheus_javaagent-0.12.0.jar=8080:config.yaml -jar abhi.jar
+
+
+
+https://www.robustperception.io/measuring-java-garbage-collection-with-prometheus
+    
+    
+
+https://app.sendgrid.com/settings/api_keys
+
