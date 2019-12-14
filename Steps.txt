@@ -83,5 +83,3 @@ https://www.robustperception.io/measuring-java-garbage-collection-with-prometheu
     
     
 
-https://app.sendgrid.com/settings/api_keys
-
